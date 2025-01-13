@@ -92,5 +92,67 @@ export const lessons: Lesson[] = [
   right: 0;
 }`
     }
+  },
+  {
+    title: "Fixed Positioning",
+    content: `
+      <h2>Fixed Positioning</h2>
+      <p>Elements with <code>position: fixed</code> are positioned relative to the viewport and stay in place even when scrolling.</p>
+      <ul>
+        <li>Positioned relative to the viewport</li>
+        <li>Stays fixed while scrolling</li>
+        <li>Removed from the document flow</li>
+      </ul>
+    `,
+    demo: {
+      defaultPosition: "fixed",
+      positions: ["fixed"],
+      codeExample: (pos: string) => `.element {
+  position: ${pos};
+  top: 20px;
+  right: 20px;
+}`
+    },
+    exercise: {
+      instructions: "Create a fixed element that stays in the top-right corner of the viewport.",
+      startingCode: `.target {
+  /* Add your code here */
+}`,
+      solution: `.target {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+}`
+    }
+  },
+  {
+    title: "Sticky Positioning",
+    content: `
+      <h2>Sticky Positioning</h2>
+      <p>Elements with <code>position: sticky</code> toggle between relative and fixed positioning based on the scroll position.</p>
+      <ul>
+        <li>Acts like relative positioning until a scroll threshold</li>
+        <li>Becomes fixed after reaching the threshold</li>
+        <li>Stays within its parent container</li>
+      </ul>
+    `,
+    demo: {
+      defaultPosition: "sticky",
+      positions: ["sticky"],
+      codeExample: (pos: string) => `.element {
+  position: ${pos};
+  top: 0;
+}`
+    },
+    exercise: {
+      instructions: "Create a sticky header that stays at the top of the viewport while scrolling within its container.",
+      startingCode: `.target {
+  /* Add your code here */
+}`,
+      solution: `.target {
+  position: sticky;
+  top: 0;
+}`
+    }
   }
 ];

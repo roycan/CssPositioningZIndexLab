@@ -21,12 +21,28 @@ export function Demo({ demo }: { demo: DemoType }) {
       </div>
 
       <Card className="relative bg-muted p-8 h-[300px] overflow-hidden">
-        <div 
-          className="absolute bg-primary/20 border border-primary p-4 rounded-md w-[100px] h-[100px] flex items-center justify-center text-sm"
-          style={{ position: currentPosition as 'static' | 'relative' | 'absolute' }}
-        >
-          Positioned Element
-        </div>
+        {currentPosition === "sticky" ? (
+          <div className="h-[400px] overflow-y-auto">
+            <div className="h-[100px] bg-secondary/20 mb-4"></div>
+            <div 
+              className="bg-primary/20 border border-primary p-4 rounded-md w-[100px] h-[100px] flex items-center justify-center text-sm"
+              style={{ position: currentPosition as any, top: 0 }}
+            >
+              Sticky Element
+            </div>
+            <div className="h-[300px] bg-secondary/20"></div>
+          </div>
+        ) : (
+          <div 
+            className="absolute bg-primary/20 border border-primary p-4 rounded-md w-[100px] h-[100px] flex items-center justify-center text-sm"
+            style={{ 
+              position: currentPosition as 'static' | 'relative' | 'absolute' | 'fixed',
+              ...(currentPosition === "fixed" ? { top: 20, right: 20 } : {})
+            }}
+          >
+            Positioned Element
+          </div>
+        )}
       </Card>
 
       <div className="mt-4 p-4 bg-muted rounded-md">
