@@ -1,54 +1,80 @@
-import { Navigation } from "@/components/Navigation";
-import { LessonContent } from "@/components/LessonContent";
-import { Demo } from "@/components/Demo";
-import { PracticeExercise } from "@/components/PracticeExercise";
-import { Card } from "@/components/ui/card";
-import { lessons } from "@/content/lessons";
 import { useState } from "react";
+
+const lessons = [
+  {
+    title: "Default (Static)",
+    content: "Elements with position: static are positioned according to the normal document flow."
+  },
+  {
+    title: "Relative",
+    content: "Elements with position: relative are positioned relative to their normal position."
+  },
+  {
+    title: "Absolute",
+    content: "Elements with position: absolute are positioned relative to their nearest positioned ancestor."
+  }
+];
 
 export default function HomePage() {
   const [activeLesson, setActiveLesson] = useState(0);
   const currentLesson = lessons[activeLesson];
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-6">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-            CSS Positioning Tutorial
-          </h1>
-          <p className="mt-2 text-muted-foreground">
-            Learn CSS positioning through interactive examples and practice
-          </p>
-        </div>
-      </header>
+    <div style={{ minHeight: '100vh', backgroundColor: '#f5f5f5', padding: '20px' }}>
+      <h1 style={{ fontSize: '2rem', marginBottom: '20px' }}>CSS Positioning Tutorial</h1>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          <div className="lg:col-span-3">
-            <Navigation 
-              lessons={lessons}
-              activeLesson={activeLesson}
-              onSelect={setActiveLesson}
-            />
+      <div style={{ display: 'flex', gap: '20px' }}>
+        {/* Navigation */}
+        <nav style={{ width: '200px' }}>
+          {lessons.map((lesson, index) => (
+            <button
+              key={index}
+              onClick={() => setActiveLesson(index)}
+              style={{
+                width: '100%',
+                padding: '10px',
+                marginBottom: '10px',
+                border: 'none',
+                borderRadius: '4px',
+                backgroundColor: activeLesson === index ? '#0066cc' : 'white',
+                color: activeLesson === index ? 'white' : 'black',
+                cursor: 'pointer',
+                textAlign: 'left'
+              }}
+            >
+              {index + 1}. {lesson.title}
+            </button>
+          ))}
+        </nav>
+
+        {/* Content */}
+        <main style={{ flex: 1, backgroundColor: 'white', padding: '20px', borderRadius: '4px' }}>
+          <h2 style={{ marginBottom: '20px' }}>{currentLesson.title} Positioning</h2>
+          <p style={{ marginBottom: '30px' }}>{currentLesson.content}</p>
+
+          {/* Demo */}
+          <div style={{ 
+            position: 'relative',
+            height: '300px',
+            backgroundColor: '#f8f8f8',
+            padding: '20px',
+            border: '1px solid #ddd',
+            borderRadius: '4px'
+          }}>
+            <div style={{
+              width: '100px',
+              height: '100px',
+              backgroundColor: '#e6f0ff',
+              border: '1px solid #0066cc',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              position: currentLesson.title.toLowerCase() as any
+            }}>
+              Positioned Box
+            </div>
           </div>
-
-          <main className="lg:col-span-9 space-y-8">
-            <Card className="p-6">
-              <LessonContent content={currentLesson.content} />
-            </Card>
-
-            <Card className="p-6">
-              <h2 className="text-2xl font-semibold mb-4">Interactive Demo</h2>
-              <Demo demo={currentLesson.demo} />
-            </Card>
-
-            <Card className="p-6">
-              <h2 className="text-2xl font-semibold mb-4">Practice Exercise</h2>
-              <PracticeExercise exercise={currentLesson.exercise} />
-            </Card>
-          </main>
-        </div>
+        </main>
       </div>
     </div>
   );
