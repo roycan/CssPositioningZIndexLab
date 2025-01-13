@@ -1,80 +1,63 @@
 import { useState } from "react";
-
-const lessons = [
-  {
-    title: "Default (Static)",
-    content: "Elements with position: static are positioned according to the normal document flow."
-  },
-  {
-    title: "Relative",
-    content: "Elements with position: relative are positioned relative to their normal position."
-  },
-  {
-    title: "Absolute",
-    content: "Elements with position: absolute are positioned relative to their nearest positioned ancestor."
-  }
-];
+import { Navigation } from "@/components/Navigation";
+import { LessonContent } from "@/components/LessonContent";
+import { Demo } from "@/components/Demo";
+import { PracticeExercise } from "@/components/PracticeExercise";
+import { useProgress } from "@/hooks/useProgress";
+import { lessons } from "@/content/lessons";
+import { Button } from "@/components/ui/button";
+import { CheckCircle } from "lucide-react";
 
 export default function HomePage() {
   const [activeLesson, setActiveLesson] = useState(0);
+  const { progress, markLessonComplete, isLessonCompleted } = useProgress();
   const currentLesson = lessons[activeLesson];
 
+  const handleComplete = () => {
+    if (currentLesson && !isLessonCompleted(currentLesson.id)) {
+      markLessonComplete(currentLesson.id);
+    }
+  };
+
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#f5f5f5', padding: '20px' }}>
-      <h1 style={{ fontSize: '2rem', marginBottom: '20px' }}>CSS Positioning Tutorial</h1>
+    <div className="min-h-screen bg-background">
+      <div className="container mx-auto py-8">
+        <div className="flex gap-8">
+          <aside className="w-64 shrink-0">
+            <Navigation
+              lessons={lessons}
+              activeLesson={activeLesson}
+              onSelect={setActiveLesson}
+              completedLessons={progress.completedLessons}
+            />
+          </aside>
 
-      <div style={{ display: 'flex', gap: '20px' }}>
-        {/* Navigation */}
-        <nav style={{ width: '200px' }}>
-          {lessons.map((lesson, index) => (
-            <button
-              key={index}
-              onClick={() => setActiveLesson(index)}
-              style={{
-                width: '100%',
-                padding: '10px',
-                marginBottom: '10px',
-                border: 'none',
-                borderRadius: '4px',
-                backgroundColor: activeLesson === index ? '#0066cc' : 'white',
-                color: activeLesson === index ? 'white' : 'black',
-                cursor: 'pointer',
-                textAlign: 'left'
-              }}
-            >
-              {index + 1}. {lesson.title}
-            </button>
-          ))}
-        </nav>
-
-        {/* Content */}
-        <main style={{ flex: 1, backgroundColor: 'white', padding: '20px', borderRadius: '4px' }}>
-          <h2 style={{ marginBottom: '20px' }}>{currentLesson.title} Positioning</h2>
-          <p style={{ marginBottom: '30px' }}>{currentLesson.content}</p>
-
-          {/* Demo */}
-          <div style={{ 
-            position: 'relative',
-            height: '300px',
-            backgroundColor: '#f8f8f8',
-            padding: '20px',
-            border: '1px solid #ddd',
-            borderRadius: '4px'
-          }}>
-            <div style={{
-              width: '100px',
-              height: '100px',
-              backgroundColor: '#e6f0ff',
-              border: '1px solid #0066cc',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              position: currentLesson.title.toLowerCase() as any
-            }}>
-              Positioned Box
+          <main className="flex-1 space-y-8">
+            <div className="flex items-center justify-between">
+              <h1 className="text-3xl font-bold">{currentLesson.title}</h1>
+              <Button
+                onClick={handleComplete}
+                variant={isLessonCompleted(currentLesson.id) ? "secondary" : "default"}
+                disabled={isLessonCompleted(currentLesson.id)}
+              >
+                {isLessonCompleted(currentLesson.id) ? (
+                  <>
+                    <CheckCircle className="mr-2 h-4 w-4" />
+                    Completed
+                  </>
+                ) : (
+                  "Mark as Complete"
+                )}
+              </Button>
             </div>
-          </div>
-        </main>
+
+            <div className="space-y-8">
+              <LessonContent content={currentLesson.content} />
+              <Demo demo={currentLesson.demo} />
+              <PracticeExercise exercise={currentLesson.exercise} />
+            </div>
+          </main>
+        </div>
       </div>
     </div>
   );

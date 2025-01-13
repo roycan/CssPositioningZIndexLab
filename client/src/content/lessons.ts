@@ -2,6 +2,7 @@ import type { Lesson } from "@/lib/types";
 
 export const lessons: Lesson[] = [
   {
+    id: "static-positioning",
     title: "Default (Static) Positioning",
     content: `
       <h2>Default Positioning</h2>
@@ -30,6 +31,7 @@ export const lessons: Lesson[] = [
     }
   },
   {
+    id: "relative-positioning",
     title: "Relative Positioning",
     content: `
       <h2>Relative Positioning</h2>
@@ -62,6 +64,7 @@ export const lessons: Lesson[] = [
     }
   },
   {
+    id: "absolute-positioning",
     title: "Absolute Positioning",
     content: `
       <h2>Absolute Positioning</h2>
@@ -94,6 +97,7 @@ export const lessons: Lesson[] = [
     }
   },
   {
+    id: "fixed-positioning",
     title: "Fixed Positioning",
     content: `
       <h2>Fixed Positioning</h2>
@@ -126,6 +130,7 @@ export const lessons: Lesson[] = [
     }
   },
   {
+    id: "sticky-positioning",
     title: "Sticky Positioning",
     content: `
       <h2>Sticky Positioning</h2>

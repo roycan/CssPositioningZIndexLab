@@ -11,8 +11,15 @@ export interface Exercise {
 }
 
 export interface Lesson {
+  id: string;
   title: string;
   content: string;
   demo: Demo;
   exercise: Exercise;
+  completed?: boolean;
+}
+
+export interface Progress {
+  completedLessons: string[];
+  lastVisitedLesson: string;
 }
