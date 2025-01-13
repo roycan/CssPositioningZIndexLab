@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Positioning Tutorial</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.5;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .demo-box {
+            height: 200px;
+            border: 2px dashed #ccc;
+            background: #f9f9f9;
+            margin: 20px 0;
+            position: relative;
+            border-radius: 4px;
+        }
+
+        .box {
+            width: 80px;
+            height: 80px;
+            background: #0066cc;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+
+        /* Specific positioning examples */
+        .static-box {
+            position: static;
+            background: #0066cc;
+        }
+
+        .relative-box {
+            position: relative;
+            top: 40px;
+            left: 40px;
+            background: #e6a23c;
+        }
+
+        .absolute-box {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: #67c23a;
+        }
+
+        code {
+            background: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+
+        .description {
+            margin: 10px 0;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>CSS Positioning Tutorial</h1>
+
+    <div class="section">
+        <h2>Static Positioning</h2>
+        <p class="description">
+            The default positioning. Elements appear in the normal document flow.
+            <code>position: static;</code>
+        </p>
+        <div class="demo-box">
+            <div class="box static-box">Static</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Relative Positioning</h2>
+        <p class="description">
+            Positioned relative to its normal position.
+            <code>position: relative; top: 40px; left: 40px;</code>
+        </p>
+        <div class="demo-box">
+            <div class="box relative-box">Relative</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Absolute Positioning</h2>
+        <p class="description">
+            Positioned relative to its nearest positioned ancestor.
+            <code>position: absolute; bottom: 20px; right: 20px;</code>
+        </p>
+        <div class="demo-box">
+            <div class="box absolute-box">Absolute</div>
+        </div>
+    </div>
+</body>
+</html>
