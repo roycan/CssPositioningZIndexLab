@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Positioning Tutorial</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.5;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+        }
+
+        .section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 15px;
+                margin: 15px 0;
+            }
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+        }
+
+        h2 {
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+        }
+
+        .demo-box {
+            height: 200px;
+            border: 2px dashed #ccc;
+            background: #f9f9f9;
+            margin: 20px 0;
+            position: relative;
+            border-radius: 4px;
+            overflow: hidden;
+            touch-action: manipulation;
+        }
+
+        .box {
+            width: 80px;
+            height: 80px;
+            background: #0066cc;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 14px;
+            border-radius: 4px;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        /* Specific positioning examples */
+        .static-box {
+            position: static;
+            background: #0066cc;
+        }
+
+        .relative-box {
+            position: relative;
+            top: 40px;
+            left: 40px;
+            background: #e6a23c;
+        }
+
+        .absolute-box {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: #67c23a;
+        }
+
+        .fixed-box {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #9c27b0;
+            z-index: 100;
+        }
+
+        .sticky-box {
+            position: sticky;
+            top: 20px;
+            background: #ff5722;
+        }
+
+        /* Z-index demonstration styles */
+        .z-index-demo {
+            height: 300px;
+            position: relative;
+            background: #f9f9f9;
+            border: 2px dashed #ccc;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+
+        .z-box {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: transform 0.3s;
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .z-box:active {
+            transform: scale(0.95);
+        }
+
+        .z-box-1 {
+            background: #e74c3c;
+            top: 50px;
+            left: 50px;
+            z-index: 1;
+        }
+
+        .z-box-2 {
+            background: #3498db;
+            top: 80px;
+            left: 80px;
+            z-index: 2;
+        }
+
+        .z-box-3 {
+            background: #2ecc71;
+            top: 110px;
+            left: 110px;
+            z-index: 3;
+        }
+
+        code {
+            background: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+            word-break: break-word;
+        }
+
+        .description {
+            margin: 10px 0;
+            color: #666;
+            font-size: clamp(0.875rem, 2vw, 1rem);
+        }
+
+        .explanation {
+            background: #fff3e0;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+            border-left: 4px solid #ff9800;
+        }
+
+        /* Quiz styles */
+        .quiz-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .quiz-question {
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .quiz-option {
+            padding: 12px;
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quiz-option:hover {
+            border-color: #0066cc;
+            background: #f8f9ff;
+        }
+
+        .quiz-option.selected {
+            border-color: #0066cc;
+            background: #e6f7ff;
+        }
+
+        .quiz-option.correct {
+            border-color: #67c23a;
+            background: #f0f9eb;
+        }
+
+        .quiz-option.incorrect {
+            border-color: #f56c6c;
+            background: #fef0f0;
+        }
+
+        .quiz-feedback {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .quiz-feedback.correct {
+            background: #f0f9eb;
+            color: #67c23a;
+            display: block;
+        }
+
+        .quiz-feedback.incorrect {
+            background: #fef0f0;
+            color: #f56c6c;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>CSS Positioning Tutorial</h1>
+
+    <div class="section">
+        <h2>Static Positioning (Default)</h2>
+        <p class="description">
+            The default positioning. Elements appear in the normal document flow.
+            <code>position: static;</code>
+        </p>
+        <div class="demo-box">
+            <div class="box static-box">Static</div>
+        </div>
+        <div class="quiz-section" data-question="static">
+            <p class="quiz-question">What is the default position value for HTML elements?</p>
+            <div class="quiz-options">
+                <div class="quiz-option" data-correct="true">static</div>
+                <div class="quiz-option">relative</div>
+                <div class="quiz-option">absolute</div>
+                <div class="quiz-option">fixed</div>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Relative Positioning</h2>
+        <p class="description">
+            Positioned relative to its normal position.
+            <code>position: relative; top: 40px; left: 40px;</code>
+        </p>
+        <div class="demo-box">
+            <div class="box relative-box">Relative</div>
+        </div>
+        <div class="quiz-section" data-question="relative">
+            <p class="quiz-question">How is an element positioned relative to its normal position?</p>
+            <div class="quiz-options">
+                <div class="quiz-option">relative to the viewport</div>
+                <div class="quiz-option" data-correct="true">relative to its normal position</div>
+                <div class="quiz-option">relative to its nearest positioned ancestor</div>
+                <div class="quiz-option">relative to the document flow</div>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Absolute Positioning</h2>
+        <p class="description">
+            Positioned relative to its nearest positioned ancestor.
+            <code>position: absolute; bottom: 20px; right: 20px;</code>
+        </p>
+        <div class="demo-box">
+            <div class="box absolute-box">Absolute</div>
+        </div>
+        <div class="quiz-section" data-question="absolute">
+            <p class="quiz-question">Relative to what is an absolutely positioned element positioned?</p>
+            <div class="quiz-options">
+                <div class="quiz-option">the viewport</div>
+                <div class="quiz-option">its normal position</div>
+                <div class="quiz-option" data-correct="true">its nearest positioned ancestor</div>
+                <div class="quiz-option">the document flow</div>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Fixed Positioning</h2>
+        <p class="description">
+            Positioned relative to the viewport, stays in place while scrolling.
+            <code>position: fixed; top: 20px; right: 20px;</code>
+        </p>
+        <div class="demo-box">
+            <div class="box fixed-box">Fixed</div>
+        </div>
+        <div class="quiz-section" data-question="fixed">
+            <p class="quiz-question">What is the behavior of a fixed-positioned element during scrolling?</p>
+            <div class="quiz-options">
+                <div class="quiz-option">It scrolls with the page</div>
+                <div class="quiz-option" data-correct="true">It stays fixed in the viewport</div>
+                <div class="quiz-option">It's relative to its nearest ancestor</div>
+                <div class="quiz-option">It's static</div>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Sticky Positioning</h2>
+        <p class="description">
+            Acts like relative positioning until a scroll threshold, then becomes fixed.
+            <code>position: sticky; top: 20px;</code>
+        </p>
+        <div class="demo-box" style="height: 400px; overflow-y: auto;">
+            <div style="height: 100px;"></div>
+            <div class="box sticky-box">Sticky</div>
+            <div style="height: 400px;"></div>
+        </div>
+        <div class="quiz-section" data-question="sticky">
+            <p class="quiz-question">Describe the behavior of a sticky positioned element.</p>
+            <div class="quiz-options">
+                <div class="quiz-option">Always fixed to the viewport</div>
+                <div class="quiz-option">Always relative to its parent</div>
+                <div class="quiz-option" data-correct="true">Behaves like relative until scroll threshold, then fixed</div>
+                <div class="quiz-option">Always static</div>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Z-Index and Stacking Order</h2>
+        <p class="description">
+            The z-index property controls the vertical stacking order of elements that overlap. It only works on positioned elements (relative, absolute, fixed, or sticky).
+        </p>
+
+        <div class="explanation">
+            <strong>Key Points:</strong>
+            <ul>
+                <li>Higher z-index values appear on top</li>
+                <li>Only works with positioned elements</li>
+                <li>Default z-index is auto (0)</li>
+                <li>Can be positive or negative numbers</li>
+            </ul>
+        </div>
+
+        <p class="description">
+            In this example, we have three boxes with different z-index values:
+            <br>
+            <code>Red box: z-index: 1;</code>
+            <br>
+            <code>Blue box: z-index: 2;</code>
+            <br>
+            <code>Green box: z-index: 3;</code>
+        </p>
+
+        <div class="z-index-demo">
+            <div class="z-box z-box-1">z-index: 1</div>
+            <div class="z-box z-box-2">z-index: 2</div>
+            <div class="z-box z-box-3">z-index: 3</div>
+        </div>
+        <div class="quiz-section" data-question="z-index">
+            <p class="quiz-question">Which property controls the stacking order of overlapping elements?</p>
+            <div class="quiz-options">
+                <div class="quiz-option">position</div>
+                <div class="quiz-option">display</div>
+                <div class="quiz-option" data-correct="true">z-index</div>
+                <div class="quiz-option">overflow</div>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+    </div>
+
+    <script>
+        // Quiz functionality
+        document.querySelectorAll('.quiz-section').forEach(quizSection => {
+            const options = quizSection.querySelectorAll('.quiz-option');
+            const feedback = quizSection.querySelector('.quiz-feedback');
+
+            options.forEach(option => {
+                option.addEventListener('click', () => {
+                    // Remove previous selections
+                    options.forEach(opt => {
+                        opt.classList.remove('selected', 'correct', 'incorrect');
+                    });
+
+                    // Add selected class
+                    option.classList.add('selected');
+
+                    // Check if answer is correct
+                    const isCorrect = option.dataset.correct === 'true';
+                    option.classList.add(isCorrect ? 'correct' : 'incorrect');
+
+                    // Show feedback
+                    feedback.textContent = isCorrect ? 
+                        'Correct! Well done!' : 
+                        'Incorrect. Try again!';
+                    feedback.className = 'quiz-feedback ' + (isCorrect ? 'correct' : 'incorrect');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
