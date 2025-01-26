@@ -70,6 +70,20 @@
             background: #67c23a;
         }
 
+        .fixed-box {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #9c27b0;
+            z-index: 100;
+        }
+
+        .sticky-box {
+            position: sticky;
+            top: 20px;
+            background: #ff5722;
+        }
+
         code {
             background: #f0f0f0;
             padding: 2px 6px;
@@ -116,6 +130,30 @@
         </p>
         <div class="demo-box">
             <div class="box absolute-box">Absolute</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Fixed Positioning</h2>
+        <p class="description">
+            Positioned relative to the viewport, stays in place while scrolling.
+            <code>position: fixed; top: 20px; right: 20px;</code>
+        </p>
+        <div class="demo-box">
+            <div class="box fixed-box">Fixed</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Sticky Positioning</h2>
+        <p class="description">
+            Acts like relative positioning until a scroll threshold, then becomes fixed.
+            <code>position: sticky; top: 20px;</code>
+        </p>
+        <div class="demo-box" style="height: 400px; overflow-y: auto;">
+            <div style="height: 100px;"></div>
+            <div class="box sticky-box">Sticky</div>
+            <div style="height: 400px;"></div>
         </div>
     </div>
 </body>
