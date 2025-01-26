@@ -84,6 +84,50 @@
             background: #ff5722;
         }
 
+        /* Z-index demonstration styles */
+        .z-index-demo {
+            height: 300px;
+            position: relative;
+            background: #f9f9f9;
+            border: 2px dashed #ccc;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+
+        .z-box {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: z-index 0.3s;
+        }
+
+        .z-box-1 {
+            background: #e74c3c;
+            top: 50px;
+            left: 50px;
+            z-index: 1;
+        }
+
+        .z-box-2 {
+            background: #3498db;
+            top: 80px;
+            left: 80px;
+            z-index: 2;
+        }
+
+        .z-box-3 {
+            background: #2ecc71;
+            top: 110px;
+            left: 110px;
+            z-index: 3;
+        }
+
         code {
             background: #f0f0f0;
             padding: 2px 6px;
@@ -94,6 +138,15 @@
         .description {
             margin: 10px 0;
             color: #666;
+        }
+
+        /* New styles for z-index explanation */
+        .explanation {
+            background: #fff3e0;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+            border-left: 4px solid #ff9800;
         }
     </style>
 </head>
@@ -154,6 +207,40 @@
             <div style="height: 100px;"></div>
             <div class="box sticky-box">Sticky</div>
             <div style="height: 400px;"></div>
+        </div>
+    </div>
+
+    <!-- New Z-index Section -->
+    <div class="section">
+        <h2>Z-Index and Stacking Order</h2>
+        <p class="description">
+            The z-index property controls the vertical stacking order of elements that overlap. It only works on positioned elements (relative, absolute, fixed, or sticky).
+        </p>
+
+        <div class="explanation">
+            <strong>Key Points:</strong>
+            <ul>
+                <li>Higher z-index values appear on top</li>
+                <li>Only works with positioned elements</li>
+                <li>Default z-index is auto (0)</li>
+                <li>Can be positive or negative numbers</li>
+            </ul>
+        </div>
+
+        <p class="description">
+            In this example, we have three boxes with different z-index values:
+            <br>
+            <code>Red box: z-index: 1;</code>
+            <br>
+            <code>Blue box: z-index: 2;</code>
+            <br>
+            <code>Green box: z-index: 3;</code>
+        </p>
+
+        <div class="z-index-demo">
+            <div class="z-box z-box-1">z-index: 1</div>
+            <div class="z-box z-box-2">z-index: 2</div>
+            <div class="z-box z-box-3">z-index: 3</div>
         </div>
     </div>
 </body>
