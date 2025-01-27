@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="generated-icon.png" type="image/png">
     <title>CSS Positioning Tutorial</title>
     <style>
         body {
@@ -69,6 +70,22 @@
             border-radius: 4px;
             user-select: none;
             -webkit-user-select: none;
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+        }
+
+        .box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .box.animate {
+            animation: moveAround 2s infinite alternate ease-in-out;
+        }
+
+        @keyframes moveAround {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(40px, 40px); }
         }
 
         /* Specific positioning examples */
@@ -244,6 +261,70 @@
             color: #f56c6c;
             display: block;
         }
+
+        /* Add download section styles */
+        .download-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .download-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #0066cc;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.2s;
+            margin: 10px;
+        }
+
+        .download-button:hover {
+            background: #0052a3;
+        }
+
+        /* Animation controls */
+        .animation-controls {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .control-button {
+            padding: 8px 16px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .control-button:hover {
+            background: #e0e0e0;
+        }
+
+        /* Enhanced mobile responsiveness */
+        @media (max-width: 768px) {
+            .animation-controls {
+                flex-direction: column;
+            }
+
+            .control-button {
+                width: 100%;
+                margin: 5px 0;
+            }
+
+            .download-button {
+                width: 100%;
+                justify-content: center;
+                margin: 5px 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -399,6 +480,42 @@
         </div>
     </div>
 
+    <!-- Update the download section to link to individual files -->
+    <div class="section download-section">
+        <h2>Downloadable Resources</h2>
+        <p>Access these helpful resources to aid your learning:</p>
+        <div class="downloads">
+            <a href="css-positioning-cheatsheet.md" class="download-button">
+                CSS Positioning Cheatsheet
+            </a>
+            <a href="example-code/static.html" class="download-button">
+                Static Position Example
+            </a>
+            <a href="example-code/relative.html" class="download-button">
+                Relative Position Example
+            </a>
+            <a href="example-code/absolute.html" class="download-button">
+                Absolute Position Example
+            </a>
+        </div>
+    </div>
+
+    <!-- Add interactive animation demo -->
+    <div class="section">
+        <h2>Interactive Animation Demo</h2>
+        <p class="description">
+            Click the buttons below to see different positioning animations in action.
+        </p>
+        <div class="animation-controls">
+            <button class="control-button" onclick="animatePosition('relative')">Relative Animation</button>
+            <button class="control-button" onclick="animatePosition('absolute')">Absolute Animation</button>
+            <button class="control-button" onclick="animatePosition('fixed')">Fixed Animation</button>
+        </div>
+        <div class="demo-box">
+            <div id="animation-box" class="box">Animate Me</div>
+        </div>
+    </div>
+
     <script>
         // Quiz functionality
         document.querySelectorAll('.quiz-section').forEach(quizSection => {
@@ -425,6 +542,50 @@
                         'Incorrect. Try again!';
                     feedback.className = 'quiz-feedback ' + (isCorrect ? 'correct' : 'incorrect');
                 });
+            });
+        });
+
+        // Add animation functionality
+        function animatePosition(type) {
+            const box = document.getElementById('animation-box');
+
+            // Remove previous classes and inline styles
+            box.className = 'box';
+            box.style = '';
+
+            switch(type) {
+                case 'relative':
+                    box.style.position = 'relative';
+                    box.classList.add('animate');
+                    break;
+                case 'absolute':
+                    box.style.position = 'absolute';
+                    box.style.animation = 'moveAround 2s infinite alternate ease-in-out';
+                    break;
+                case 'fixed':
+                    box.style.position = 'fixed';
+                    box.style.top = '50%';
+                    box.style.left = '50%';
+                    box.style.transform = 'translate(-50%, -50%)';
+                    setTimeout(() => {
+                        box.style.position = 'relative';
+                        box.style.top = '';
+                        box.style.left = '';
+                        box.style.transform = '';
+                    }, 2000);
+                    break;
+            }
+        }
+
+        // Add touch support for mobile devices
+        document.querySelectorAll('.box').forEach(box => {
+            box.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                this.style.transform = 'scale(1.05)';
+            });
+
+            box.addEventListener('touchend', function() {
+                this.style.transform = 'scale(1)';
             });
         });
     </script>
