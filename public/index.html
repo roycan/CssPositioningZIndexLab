@@ -1,593 +1,741 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="generated-icon.png" type="image/png">
-    <title>CSS Positioning Tutorial</title>
-    <style>
-        body {
-            font-family: system-ui, -apple-system, sans-serif;
-            line-height: 1.5;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background: #f5f5f5;
-        }
-
-        @media (max-width: 768px) {
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" href="generated-icon.png" type="image/png" />
+        <title>CSS Positioning Tutorial</title>
+        <style>
             body {
-                padding: 15px;
+                font-family:
+                    system-ui,
+                    -apple-system,
+                    sans-serif;
+                line-height: 1.5;
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 20px;
+                background: #f5f5f5;
             }
-        }
 
-        .section {
-            background: white;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
+            @media (max-width: 768px) {
+                body {
+                    padding: 15px;
+                }
+            }
 
-        @media (max-width: 768px) {
             .section {
+                background: white;
+                padding: 20px;
+                margin: 20px 0;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+            @media (max-width: 768px) {
+                .section {
+                    padding: 15px;
+                    margin: 15px 0;
+                }
+            }
+
+            h1 {
+                color: #333;
+                text-align: center;
+                font-size: clamp(1.5rem, 5vw, 2.5rem);
+            }
+
+            h2 {
+                font-size: clamp(1.2rem, 4vw, 1.8rem);
+            }
+
+            .demo-box {
+                height: 200px;
+                border: 2px dashed #ccc;
+                background: #f9f9f9;
+                margin: 20px 0;
+                position: relative;
+                border-radius: 4px;
+                overflow: hidden;
+                touch-action: manipulation;
+            }
+
+            .box {
+                width: 80px;
+                height: 80px;
+                background: #0066cc;
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                font-size: 14px;
+                border-radius: 4px;
+                user-select: none;
+                -webkit-user-select: none;
+                transition: all 0.3s ease-in-out;
+                cursor: pointer;
+            }
+
+            .box:hover {
+                transform: scale(1.05);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
+
+            .box.animate {
+                animation: moveAround 2s infinite alternate ease-in-out;
+            }
+
+            @keyframes moveAround {
+                0% {
+                    transform: translate(0, 0);
+                }
+                100% {
+                    transform: translate(40px, 40px);
+                }
+            }
+
+            /* Specific positioning examples */
+            .static-box {
+                position: static;
+                background: #0066cc;
+            }
+
+            .relative-box {
+                position: relative;
+                top: 40px;
+                left: 40px;
+                background: #e6a23c;
+            }
+
+            .absolute-box {
+                position: absolute;
+                bottom: 20px;
+                right: 20px;
+                background: #67c23a;
+            }
+
+            .fixed-box {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #9c27b0;
+                z-index: 100;
+            }
+
+            .sticky-box {
+                position: sticky;
+                top: 20px;
+                background: #ff5722;
+            }
+
+            /* Z-index demonstration styles */
+            .z-index-demo {
+                height: 300px;
+                position: relative;
+                background: #f9f9f9;
+                border: 2px dashed #ccc;
+                border-radius: 4px;
+                margin: 20px 0;
+            }
+
+            .z-box {
+                position: absolute;
+                width: 100px;
+                height: 100px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-weight: bold;
+                border-radius: 8px;
+                transition: transform 0.3s;
+                cursor: pointer;
+                user-select: none;
+                -webkit-user-select: none;
+            }
+
+            .z-box:active {
+                transform: scale(0.95);
+            }
+
+            .z-box-1 {
+                background: #e74c3c;
+                top: 50px;
+                left: 50px;
+                z-index: 1;
+            }
+
+            .z-box-2 {
+                background: #3498db;
+                top: 80px;
+                left: 80px;
+                z-index: 2;
+            }
+
+            .z-box-3 {
+                background: #2ecc71;
+                top: 110px;
+                left: 110px;
+                z-index: 3;
+            }
+
+            code {
+                background: #f0f0f0;
+                padding: 2px 6px;
+                border-radius: 3px;
+                font-family: monospace;
+                word-break: break-word;
+            }
+
+            .description {
+                margin: 10px 0;
+                color: #666;
+                font-size: clamp(0.875rem, 2vw, 1rem);
+            }
+
+            .explanation {
+                background: #fff3e0;
                 padding: 15px;
-                margin: 15px 0;
-            }
-        }
-
-        h1 {
-            color: #333;
-            text-align: center;
-            font-size: clamp(1.5rem, 5vw, 2.5rem);
-        }
-
-        h2 {
-            font-size: clamp(1.2rem, 4vw, 1.8rem);
-        }
-
-        .demo-box {
-            height: 200px;
-            border: 2px dashed #ccc;
-            background: #f9f9f9;
-            margin: 20px 0;
-            position: relative;
-            border-radius: 4px;
-            overflow: hidden;
-            touch-action: manipulation;
-        }
-
-        .box {
-            width: 80px;
-            height: 80px;
-            background: #0066cc;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            font-size: 14px;
-            border-radius: 4px;
-            user-select: none;
-            -webkit-user-select: none;
-            transition: all 0.3s ease-in-out;
-            cursor: pointer;
-        }
-
-        .box:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-
-        .box.animate {
-            animation: moveAround 2s infinite alternate ease-in-out;
-        }
-
-        @keyframes moveAround {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(40px, 40px); }
-        }
-
-        /* Specific positioning examples */
-        .static-box {
-            position: static;
-            background: #0066cc;
-        }
-
-        .relative-box {
-            position: relative;
-            top: 40px;
-            left: 40px;
-            background: #e6a23c;
-        }
-
-        .absolute-box {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            background: #67c23a;
-        }
-
-        .fixed-box {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #9c27b0;
-            z-index: 100;
-        }
-
-        .sticky-box {
-            position: sticky;
-            top: 20px;
-            background: #ff5722;
-        }
-
-        /* Z-index demonstration styles */
-        .z-index-demo {
-            height: 300px;
-            position: relative;
-            background: #f9f9f9;
-            border: 2px dashed #ccc;
-            border-radius: 4px;
-            margin: 20px 0;
-        }
-
-        .z-box {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            border-radius: 8px;
-            transition: transform 0.3s;
-            cursor: pointer;
-            user-select: none;
-            -webkit-user-select: none;
-        }
-
-        .z-box:active {
-            transform: scale(0.95);
-        }
-
-        .z-box-1 {
-            background: #e74c3c;
-            top: 50px;
-            left: 50px;
-            z-index: 1;
-        }
-
-        .z-box-2 {
-            background: #3498db;
-            top: 80px;
-            left: 80px;
-            z-index: 2;
-        }
-
-        .z-box-3 {
-            background: #2ecc71;
-            top: 110px;
-            left: 110px;
-            z-index: 3;
-        }
-
-        code {
-            background: #f0f0f0;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-family: monospace;
-            word-break: break-word;
-        }
-
-        .description {
-            margin: 10px 0;
-            color: #666;
-            font-size: clamp(0.875rem, 2vw, 1rem);
-        }
-
-        .explanation {
-            background: #fff3e0;
-            padding: 15px;
-            border-radius: 4px;
-            margin: 10px 0;
-            border-left: 4px solid #ff9800;
-        }
-
-        /* Quiz styles */
-        .quiz-section {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 15px;
-        }
-
-        .quiz-question {
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: #2c3e50;
-        }
-
-        .quiz-options {
-            display: grid;
-            gap: 10px;
-        }
-
-        .quiz-option {
-            padding: 12px;
-            background: white;
-            border: 2px solid #e9ecef;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .quiz-option:hover {
-            border-color: #0066cc;
-            background: #f8f9ff;
-        }
-
-        .quiz-option.selected {
-            border-color: #0066cc;
-            background: #e6f7ff;
-        }
-
-        .quiz-option.correct {
-            border-color: #67c23a;
-            background: #f0f9eb;
-        }
-
-        .quiz-option.incorrect {
-            border-color: #f56c6c;
-            background: #fef0f0;
-        }
-
-        .quiz-feedback {
-            margin-top: 15px;
-            padding: 10px;
-            border-radius: 4px;
-            display: none;
-        }
-
-        .quiz-feedback.correct {
-            background: #f0f9eb;
-            color: #67c23a;
-            display: block;
-        }
-
-        .quiz-feedback.incorrect {
-            background: #fef0f0;
-            color: #f56c6c;
-            display: block;
-        }
-
-        /* Add download section styles */
-        .download-section {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .download-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: #0066cc;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 4px;
-            text-decoration: none;
-            transition: background-color 0.2s;
-            margin: 10px;
-        }
-
-        .download-button:hover {
-            background: #0052a3;
-        }
-
-        /* Animation controls */
-        .animation-controls {
-            display: flex;
-            gap: 10px;
-            margin: 10px 0;
-        }
-
-        .control-button {
-            padding: 8px 16px;
-            background: #f0f0f0;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        .control-button:hover {
-            background: #e0e0e0;
-        }
-
-        /* Enhanced mobile responsiveness */
-        @media (max-width: 768px) {
-            .animation-controls {
-                flex-direction: column;
+                border-radius: 4px;
+                margin: 10px 0;
+                border-left: 4px solid #ff9800;
             }
 
-            .control-button {
-                width: 100%;
-                margin: 5px 0;
+            /* Quiz styles */
+            .quiz-section {
+                background: #f8f9fa;
+                padding: 20px;
+                border-radius: 8px;
+                margin-top: 15px;
+            }
+
+            .quiz-question {
+                font-weight: 600;
+                margin-bottom: 15px;
+                color: #2c3e50;
+            }
+
+            .quiz-options {
+                display: grid;
+                gap: 10px;
+            }
+
+            .quiz-option {
+                padding: 12px;
+                background: white;
+                border: 2px solid #e9ecef;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: all 0.2s;
+            }
+
+            .quiz-option:hover {
+                border-color: #0066cc;
+                background: #f8f9ff;
+            }
+
+            .quiz-option.selected {
+                border-color: #0066cc;
+                background: #e6f7ff;
+            }
+
+            .quiz-option.correct {
+                border-color: #67c23a;
+                background: #f0f9eb;
+            }
+
+            .quiz-option.incorrect {
+                border-color: #f56c6c;
+                background: #fef0f0;
+            }
+
+            .quiz-feedback {
+                margin-top: 15px;
+                padding: 10px;
+                border-radius: 4px;
+                display: none;
+            }
+
+            .quiz-feedback.correct {
+                background: #f0f9eb;
+                color: #67c23a;
+                display: block;
+            }
+
+            .quiz-feedback.incorrect {
+                background: #fef0f0;
+                color: #f56c6c;
+                display: block;
+            }
+
+            /* Add download section styles */
+            .download-section {
+                background: white;
+                padding: 20px;
+                border-radius: 8px;
+                margin: 20px 0;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }
 
             .download-button {
-                width: 100%;
-                justify-content: center;
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                background: #0066cc;
+                color: white;
+                padding: 10px 20px;
+                border-radius: 4px;
+                text-decoration: none;
+                transition: background-color 0.2s;
+                margin: 10px;
+            }
+
+            .download-button:hover {
+                background: #0052a3;
+            }
+
+            /* Animation controls */
+            .animation-controls {
+                display: flex;
+                gap: 10px;
+                margin: 10px 0;
+            }
+
+            .control-button {
+                padding: 8px 16px;
+                background: #f0f0f0;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: background-color 0.2s;
+            }
+
+            .control-button:hover {
+                background: #e0e0e0;
+            }
+
+            /* Enhanced mobile responsiveness */
+            @media (max-width: 768px) {
+                .animation-controls {
+                    flex-direction: column;
+                }
+
+                .control-button {
+                    width: 100%;
+                    margin: 5px 0;
+                }
+
+                .download-button {
+                    width: 100%;
+                    justify-content: center;
+                    margin: 5px 0;
+                }
+            }
+            /* z-index control styles */
+            .z-index-control {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .z-index-control label {
+                text-align: center;
+            }
+
+            .z-index-control input[type="range"] {
+                -webkit-appearance: none;
+                width: 200px; /* Adjust as needed */
+                height: 8px;
+                background: #ddd;
+                outline: none;
+                border-radius: 4px;
                 margin: 5px 0;
             }
-        }
-    </style>
-</head>
-<body>
-    <h1>CSS Positioning Tutorial</h1>
 
-    <div class="section">
-        <h2>Static Positioning (Default)</h2>
-        <p class="description">
-            The default positioning. Elements appear in the normal document flow.
-            <code>position: static;</code>
-        </p>
-        <div class="demo-box">
-            <div class="box static-box">Static</div>
-        </div>
-        <div class="quiz-section" data-question="static">
-            <p class="quiz-question">What is the default position value for HTML elements?</p>
-            <div class="quiz-options">
-                <div class="quiz-option" data-correct="true">static</div>
-                <div class="quiz-option">relative</div>
-                <div class="quiz-option">absolute</div>
-                <div class="quiz-option">fixed</div>
-            </div>
-            <div class="quiz-feedback"></div>
-        </div>
-    </div>
-
-    <div class="section">
-        <h2>Relative Positioning</h2>
-        <p class="description">
-            Positioned relative to its normal position.
-            <code>position: relative; top: 40px; left: 40px;</code>
-        </p>
-        <div class="demo-box">
-            <div class="box relative-box">Relative</div>
-        </div>
-        <div class="quiz-section" data-question="relative">
-            <p class="quiz-question">How is an element positioned relative to its normal position?</p>
-            <div class="quiz-options">
-                <div class="quiz-option">relative to the viewport</div>
-                <div class="quiz-option" data-correct="true">relative to its normal position</div>
-                <div class="quiz-option">relative to its nearest positioned ancestor</div>
-                <div class="quiz-option">relative to the document flow</div>
-            </div>
-            <div class="quiz-feedback"></div>
-        </div>
-    </div>
-
-    <div class="section">
-        <h2>Absolute Positioning</h2>
-        <p class="description">
-            Positioned relative to its nearest positioned ancestor.
-            <code>position: absolute; bottom: 20px; right: 20px;</code>
-        </p>
-        <div class="demo-box">
-            <div class="box absolute-box">Absolute</div>
-        </div>
-        <div class="quiz-section" data-question="absolute">
-            <p class="quiz-question">Relative to what is an absolutely positioned element positioned?</p>
-            <div class="quiz-options">
-                <div class="quiz-option">the viewport</div>
-                <div class="quiz-option">its normal position</div>
-                <div class="quiz-option" data-correct="true">its nearest positioned ancestor</div>
-                <div class="quiz-option">the document flow</div>
-            </div>
-            <div class="quiz-feedback"></div>
-        </div>
-    </div>
-
-    <div class="section">
-        <h2>Fixed Positioning</h2>
-        <p class="description">
-            Positioned relative to the viewport, stays in place while scrolling.
-            <code>position: fixed; top: 20px; right: 20px;</code>
-        </p>
-        <div class="demo-box">
-            <div class="box fixed-box">Fixed</div>
-        </div>
-        <div class="quiz-section" data-question="fixed">
-            <p class="quiz-question">What is the behavior of a fixed-positioned element during scrolling?</p>
-            <div class="quiz-options">
-                <div class="quiz-option">It scrolls with the page</div>
-                <div class="quiz-option" data-correct="true">It stays fixed in the viewport</div>
-                <div class="quiz-option">It's relative to its nearest ancestor</div>
-                <div class="quiz-option">It's static</div>
-            </div>
-            <div class="quiz-feedback"></div>
-        </div>
-    </div>
-
-    <div class="section">
-        <h2>Sticky Positioning</h2>
-        <p class="description">
-            Acts like relative positioning until a scroll threshold, then becomes fixed.
-            <code>position: sticky; top: 20px;</code>
-        </p>
-        <div class="demo-box" style="height: 400px; overflow-y: auto;">
-            <div style="height: 100px;"></div>
-            <div class="box sticky-box">Sticky</div>
-            <div style="height: 400px;"></div>
-        </div>
-        <div class="quiz-section" data-question="sticky">
-            <p class="quiz-question">Describe the behavior of a sticky positioned element.</p>
-            <div class="quiz-options">
-                <div class="quiz-option">Always fixed to the viewport</div>
-                <div class="quiz-option">Always relative to its parent</div>
-                <div class="quiz-option" data-correct="true">Behaves like relative until scroll threshold, then fixed</div>
-                <div class="quiz-option">Always static</div>
-            </div>
-            <div class="quiz-feedback"></div>
-        </div>
-    </div>
-
-    <div class="section">
-        <h2>Z-Index and Stacking Order</h2>
-        <p class="description">
-            The z-index property controls the vertical stacking order of elements that overlap. It only works on positioned elements (relative, absolute, fixed, or sticky).
-        </p>
-
-        <div class="explanation">
-            <strong>Key Points:</strong>
-            <ul>
-                <li>Higher z-index values appear on top</li>
-                <li>Only works with positioned elements</li>
-                <li>Default z-index is auto (0)</li>
-                <li>Can be positive or negative numbers</li>
-            </ul>
-        </div>
-
-        <p class="description">
-            In this example, we have three boxes with different z-index values:
-            <br>
-            <code>Red box: z-index: 1;</code>
-            <br>
-            <code>Blue box: z-index: 2;</code>
-            <br>
-            <code>Green box: z-index: 3;</code>
-        </p>
-
-        <div class="z-index-demo">
-            <div class="z-box z-box-1">z-index: 1</div>
-            <div class="z-box z-box-2">z-index: 2</div>
-            <div class="z-box z-box-3">z-index: 3</div>
-        </div>
-        <div class="quiz-section" data-question="z-index">
-            <p class="quiz-question">Which property controls the stacking order of overlapping elements?</p>
-            <div class="quiz-options">
-                <div class="quiz-option">position</div>
-                <div class="quiz-option">display</div>
-                <div class="quiz-option" data-correct="true">z-index</div>
-                <div class="quiz-option">overflow</div>
-            </div>
-            <div class="quiz-feedback"></div>
-        </div>
-    </div>
-
-    <!-- Update the download section to link to individual files -->
-    <div class="section download-section">
-        <h2>Downloadable Resources</h2>
-        <p>Access these helpful resources to aid your learning:</p>
-        <div class="downloads">
-            <a href="css-positioning-cheatsheet.md" class="download-button">
-                CSS Positioning Cheatsheet
-            </a>
-            <a href="example-code/static.html" class="download-button">
-                Static Position Example
-            </a>
-            <a href="example-code/relative.html" class="download-button">
-                Relative Position Example
-            </a>
-            <a href="example-code/absolute.html" class="download-button">
-                Absolute Position Example
-            </a>
-        </div>
-    </div>
-
-    <!-- Add interactive animation demo -->
-    <div class="section">
-        <h2>Interactive Animation Demo</h2>
-        <p class="description">
-            Click the buttons below to see different positioning animations in action.
-        </p>
-        <div class="animation-controls">
-            <button class="control-button" onclick="animatePosition('relative')">Relative Animation</button>
-            <button class="control-button" onclick="animatePosition('absolute')">Absolute Animation</button>
-            <button class="control-button" onclick="animatePosition('fixed')">Fixed Animation</button>
-        </div>
-        <div class="demo-box">
-            <div id="animation-box" class="box">Animate Me</div>
-        </div>
-    </div>
-
-    <script>
-        // Quiz functionality
-        document.querySelectorAll('.quiz-section').forEach(quizSection => {
-            const options = quizSection.querySelectorAll('.quiz-option');
-            const feedback = quizSection.querySelector('.quiz-feedback');
-
-            options.forEach(option => {
-                option.addEventListener('click', () => {
-                    // Remove previous selections
-                    options.forEach(opt => {
-                        opt.classList.remove('selected', 'correct', 'incorrect');
-                    });
-
-                    // Add selected class
-                    option.classList.add('selected');
-
-                    // Check if answer is correct
-                    const isCorrect = option.dataset.correct === 'true';
-                    option.classList.add(isCorrect ? 'correct' : 'incorrect');
-
-                    // Show feedback
-                    feedback.textContent = isCorrect ? 
-                        'Correct! Well done!' : 
-                        'Incorrect. Try again!';
-                    feedback.className = 'quiz-feedback ' + (isCorrect ? 'correct' : 'incorrect');
-                });
-            });
-        });
-
-        // Add animation functionality
-        function animatePosition(type) {
-            const box = document.getElementById('animation-box');
-
-            // Remove previous classes and inline styles
-            box.className = 'box';
-            box.style = '';
-
-            switch(type) {
-                case 'relative':
-                    box.style.position = 'relative';
-                    box.classList.add('animate');
-                    break;
-                case 'absolute':
-                    box.style.position = 'absolute';
-                    box.style.animation = 'moveAround 2s infinite alternate ease-in-out';
-                    break;
-                case 'fixed':
-                    box.style.position = 'fixed';
-                    box.style.top = '50%';
-                    box.style.left = '50%';
-                    box.style.transform = 'translate(-50%, -50%)';
-                    setTimeout(() => {
-                        box.style.position = 'relative';
-                        box.style.top = '';
-                        box.style.left = '';
-                        box.style.transform = '';
-                    }, 2000);
-                    break;
+            .z-index-control input[type="range"]::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                appearance: none;
+                width: 16px;
+                height: 16px;
+                background: #0066cc;
+                cursor: pointer;
+                border-radius: 50%;
             }
-        }
 
-        // Add touch support for mobile devices
-        document.querySelectorAll('.box').forEach(box => {
-            box.addEventListener('touchstart', function(e) {
-                e.preventDefault();
-                this.style.transform = 'scale(1.05)';
-            });
+            .z-index-control input[type="range"]::-moz-range-thumb {
+                width: 16px;
+                height: 16px;
+                background: #0066cc;
+                cursor: pointer;
+                border-radius: 50%;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>CSS Positioning Tutorial</h1>
 
-            box.addEventListener('touchend', function() {
-                this.style.transform = 'scale(1)';
-            });
-        });
-    </script>
-</body>
+        <div class="section">
+            <h2>Static Positioning (Default)</h2>
+            <p class="description">
+                The default positioning. Elements appear in the normal document
+                flow.
+                <code>position: static;</code>
+            </p>
+            <div class="demo-box">
+                <div class="box static-box">Static</div>
+            </div>
+            <div class="quiz-section" data-question="static">
+                <p class="quiz-question">
+                    What is the default position value for HTML elements?
+                </p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="true">static</div>
+                    <div class="quiz-option">relative</div>
+                    <div class="quiz-option">absolute</div>
+                    <div class="quiz-option">fixed</div>
+                </div>
+                <div class="quiz-feedback"></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Relative Positioning</h2>
+            <p class="description">
+                Positioned relative to its normal position.
+                <code>position: relative; top: 40px; left: 40px;</code>
+            </p>
+            <div class="demo-box">
+                <div class="box relative-box">Relative</div>
+            </div>
+            <div class="quiz-section" data-question="relative">
+                <p class="quiz-question">
+                    How is an element positioned relative to its normal
+                    position?
+                </p>
+                <div class="quiz-options">
+                    <div class="quiz-option">relative to the viewport</div>
+                    <div class="quiz-option" data-correct="true">
+                        relative to its normal position
+                    </div>
+                    <div class="quiz-option">
+                        relative to its nearest positioned ancestor
+                    </div>
+                    <div class="quiz-option">relative to the document flow</div>
+                </div>
+                <div class="quiz-feedback"></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Absolute Positioning</h2>
+            <p class="description">
+                Positioned relative to its nearest positioned ancestor.
+                <code>position: absolute; bottom: 20px; right: 20px;</code>
+            </p>
+            <div class="demo-box">
+                <div class="box absolute-box">Absolute</div>
+            </div>
+            <div class="quiz-section" data-question="absolute">
+                <p class="quiz-question">
+                    Relative to what is an absolutely positioned element
+                    positioned?
+                </p>
+                <div class="quiz-options">
+                    <div class="quiz-option">the viewport</div>
+                    <div class="quiz-option">its normal position</div>
+                    <div class="quiz-option" data-correct="true">
+                        its nearest positioned ancestor
+                    </div>
+                    <div class="quiz-option">the document flow</div>
+                </div>
+                <div class="quiz-feedback"></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Fixed Positioning</h2>
+            <p class="description">
+                Positioned relative to the viewport, stays in place while
+                scrolling.
+                <code>position: fixed; top: 20px; right: 20px;</code>
+            </p>
+            <div class="demo-box">
+                <div class="box fixed-box">Fixed</div>
+            </div>
+            <div class="quiz-section" data-question="fixed">
+                <p class="quiz-question">
+                    What is the behavior of a fixed-positioned element during
+                    scrolling?
+                </p>
+                <div class="quiz-options">
+                    <div class="quiz-option">It scrolls with the page</div>
+                    <div class="quiz-option" data-correct="true">
+                        It stays fixed in the viewport
+                    </div>
+                    <div class="quiz-option">
+                        It's relative to its nearest ancestor
+                    </div>
+                    <div class="quiz-option">It's static</div>
+                </div>
+                <div class="quiz-feedback"></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Sticky Positioning</h2>
+            <p class="description">
+                Acts like relative positioning until a scroll threshold, then
+                becomes fixed.
+                <code>position: sticky; top: 20px;</code>
+            </p>
+            <div class="demo-box" style="height: 400px; overflow-y: auto">
+                <div style="height: 100px"></div>
+                <div class="box sticky-box">Sticky</div>
+                <div style="height: 400px"></div>
+            </div>
+            <div class="quiz-section" data-question="sticky">
+                <p class="quiz-question">
+                    Describe the behavior of a sticky positioned element.
+                </p>
+                <div class="quiz-options">
+                    <div class="quiz-option">Always fixed to the viewport</div>
+                    <div class="quiz-option">Always relative to its parent</div>
+                    <div class="quiz-option" data-correct="true">
+                        Behaves like relative until scroll threshold, then fixed
+                    </div>
+                    <div class="quiz-option">Always static</div>
+                </div>
+                <div class="quiz-feedback"></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Z-Index and Stacking Order</h2>
+            <p class="description">
+                The z-index property controls the vertical stacking order of
+                elements that overlap. It only works on positioned elements
+                (relative, absolute, fixed, or sticky).
+            </p>
+
+            <div class="explanation">
+                <strong>Key Points:</strong>
+                <ul>
+                    <li>Higher z-index values appear on top</li>
+                    <li>Only works with positioned elements</li>
+                    <li>Default z-index is auto (0)</li>
+                    <li>Can be positive or negative numbers</li>
+                </ul>
+            </div>
+
+            <p class="description">
+                In this example, we have three boxes with different z-index
+                values:
+                <br />
+                <code>Red box: z-index: 1;</code>
+                <br />
+                <code>Blue box: z-index: 2;</code>
+                <br />
+                <code>Green box: z-index: 3;</code>
+            </p>
+
+            <div class="z-index-demo">
+                <div class="z-box z-box-1">z-index: 1</div>
+                <div class="z-box z-box-2">z-index: 2</div>
+                <div class="z-box z-box-3">z-index: 3</div>
+            </div>
+            <div class="quiz-section" data-question="z-index">
+                <p class="quiz-question">
+                    Which property controls the stacking order of overlapping
+                    elements?
+                </p>
+                <div class="quiz-options">
+                    <div class="quiz-option">position</div>
+                    <div class="quiz-option">display</div>
+                    <div class="quiz-option" data-correct="true">z-index</div>
+                    <div class="quiz-option">overflow</div>
+                </div>
+                <div class="quiz-feedback"></div>
+            </div>
+        </div>
+
+        <!-- Update the download section to link to individual files -->
+        <div class="section download-section">
+            <h2>Downloadable Resources</h2>
+            <p>Access these helpful resources to aid your learning:</p>
+            <div class="downloads">
+                <a href="css-positioning-cheatsheet.md" class="download-button">
+                    CSS Positioning Cheatsheet
+                </a>
+                <a href="example-code/static.html" class="download-button">
+                    Static Position Example
+                </a>
+                <a href="example-code/relative.html" class="download-button">
+                    Relative Position Example
+                </a>
+                <a href="example-code/absolute.html" class="download-button">
+                    Absolute Position Example
+                </a>
+            </div>
+        </div>
+
+        <!-- Animation demo section -->
+        <div class="section">
+            <h2>Interactive Animation Demo</h2>
+            <p class="description">
+                Click the buttons below to see how different positioning affects the layout flow. Watch how other elements adjust their positions when Block 2 is positioned absolutely. Use the z-index slider to control the stacking order of Block 2 when using relative positioning, and observe how it can move behind or in front of Block 3.
+            </p>
+            <div class="animation-controls">
+                <button class="control-button" onclick="animatePosition('relative')">Relative Animation</button>
+                <button class="control-button" onclick="animatePosition('absolute')">Absolute Animation</button>
+                <button class="control-button" onclick="resetAnimation()">Reset</button>
+
+                <div class="z-index-control" style="margin-top: 10px; display: none;" id="zIndexControl">
+                    <label for="zIndexSlider" style="display: block; margin-bottom: 5px;">
+                        Z-Index for Block 2: <span id="zIndexValue">0</span>
+                    </label>
+                    <input 
+                        type="range" 
+                        id="zIndexSlider" 
+                        min="-1" 
+                        max="3" 
+                        value="0"
+                        style="width: 100%; margin-bottom: 10px;"
+                        oninput="updateZIndex(this.value)"
+                    >
+                </div>
+            </div>
+            <div class="demo-box" style="height: 400px">
+                <div id="flow-container" style="padding: 20px">
+                    <div class="box" style="background: #0066cc" id="box1">Block 1</div>
+                    <div class="box" style="background: #e6a23c" id="box2">Block 2</div>
+                    <div class="box" style="background: #67c23a" id="box3">Block 3</div>
+                    <div class="box" style="background: #9c27b0" id="box4">Block 4</div>
+                    <div class="box" style="background: #ff5722" id="box5">Block 5</div>
+                    <div class="box" style="background: #2196f3" id="box6">Block 6</div>
+                </div>
+            </div>
+            <p class="explanation" style="margin-top: 20px">
+                <strong>Notice:</strong> When Block 2 is set to absolute positioning, Blocks 3-6 move up to fill the space, 
+                demonstrating how elements are removed from the normal document flow. When using relative positioning, 
+                try adjusting the z-index to see how Block 2 can move behind or in front of Block 3 (which has a z-index of 2).
+            </p>
+        </div>
+
+        <script>
+            // Quiz functionality
+            document
+                .querySelectorAll(".quiz-section")
+                .forEach((quizSection) => {
+                    const options =
+                        quizSection.querySelectorAll(".quiz-option");
+                    const feedback =
+                        quizSection.querySelector(".quiz-feedback");
+
+                    options.forEach((option) => {
+                        option.addEventListener("click", () => {
+                            // Remove previous selections
+                            options.forEach((opt) => {
+                                opt.classList.remove(
+                                    "selected",
+                                    "correct",
+                                    "incorrect",
+                                );
+                            });
+
+                            // Add selected class
+                            option.classList.add("selected");
+
+                            // Check if answer is correct
+                            const isCorrect = option.dataset.correct === "true";
+                            option.classList.add(
+                                isCorrect ? "correct" : "incorrect",
+                            );
+
+                            // Show feedback
+                            feedback.textContent = isCorrect
+                                ? "Correct! Well done!"
+                                : "Incorrect. Try again!";
+                            feedback.className =
+                                "quiz-feedback " +
+                                (isCorrect ? "correct" : "incorrect");
+                        });
+                    });
+                });
+
+            // Animation functionality
+            function animatePosition(type) {
+                const boxes = document.querySelectorAll('#flow-container .box');
+                const box2 = document.getElementById('box2');
+                const box3 = document.getElementById('box3');
+                const zIndexControl = document.getElementById('zIndexControl');
+
+
+                // Reset all boxes first
+                boxes.forEach((box) => {
+                    box.style = '';
+                    box.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+                });
+
+                switch(type) {
+                    case 'relative':
+                        box2.style.position = 'relative';
+                        box2.style.top = '20px';
+                        box2.style.left = '50px';
+                        box2.style.zIndex = document.getElementById('zIndexSlider').value;
+                        box2.style.background = '#e6a23c';
+
+                        // Set box3's z-index to be higher by default
+                        box3.style.position = 'relative';
+                        box3.style.zIndex = '2';
+                        zIndexControl.style.display = 'block'; // Show z-index control
+                        break;
+                    case 'absolute':
+                        zIndexControl.style.display = 'none'; // Hide z-index control
+                        // Move box2 to center with a slight delay to show the reflow
+                        setTimeout(() => {
+                            box2.style.position = 'absolute';
+                            box2.style.top = '50%';
+                            box2.style.left = '50%';
+                            box2.style.transform = 'translate(-50%, -50%) scale(1.1)';
+                            box2.style.zIndex = '10';
+                            box2.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
+                            box2.style.background = '#e6a23c';
+                        }, 100);
+                        break;
+                }
+            }
+
+            function updateZIndex(value) {
+                const box2 = document.getElementById('box2');
+                const zIndexValue = document.getElementById('zIndexValue');
+
+                if (box2.style.position === 'relative') {
+                    box2.style.zIndex = value;
+                    zIndexValue.textContent = value;
+                    box2.style.background = '#e6a23c';
+                }
+            }
+
+            function resetAnimation() {
+                const boxes = document.querySelectorAll('#flow-container .box');
+                const zIndexControl = document.getElementById('zIndexControl');
+                const zIndexSlider = document.getElementById('zIndexSlider');
+                const zIndexValue = document.getElementById('zIndexValue');
+
+                boxes.forEach((box) => {
+                    box.style = '';
+                    if (box.id === 'box1') box.style.background = '#0066cc';
+                    if (box.id === 'box2') box.style.background = '#e6a23c';
+                    if (box.id === 'box3') box.style.background = '#67c23a';
+                    if (box.id === 'box4') box.style.background = '#9c27b0';
+                    if (box.id === 'box5') box.style.background = '#ff5722';
+                    if (box.id === 'box6') box.style.background = '#2196f3';
+                });
+
+                zIndexControl.style.display = 'none';
+                zIndexSlider.value = 0;
+                zIndexValue.textContent = '0';
+            }
+        </script>
+    </body>
 </html>
