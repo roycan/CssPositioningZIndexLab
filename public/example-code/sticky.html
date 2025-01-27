@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sticky Position Example</title>
+    <style>
+        .container {
+            height: 400px;
+            overflow-y: auto;
+            border: 2px dashed #ccc;
+        }
+        .sticky-header {
+            background: #ff5722;
+            color: white;
+            padding: 15px;
+            position: sticky;
+            top: 0;
+        }
+        .content {
+            padding: 20px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sticky-header">Sticky Header</div>
+        <div class="content">Scroll this container to see the header stick to the top</div>
+        <div class="content">More content to make it scrollable</div>
+        <div class="content">Even more content</div>
+    </div>
+</body>
+</html>

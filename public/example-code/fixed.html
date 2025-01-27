@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fixed Position Example</title>
+    <style>
+        body {
+            height: 200vh; /* Make page scrollable */
+            margin: 0;
+            padding: 20px;
+        }
+        .box {
+            width: 100px;
+            height: 100px;
+            background: #9c27b0;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Scroll down to see the fixed box stay in place</h1>
+    <div class="box">Fixed Box</div>
+    <div style="margin-top: 150vh">Bottom of page</div>
+</body>
+</html>

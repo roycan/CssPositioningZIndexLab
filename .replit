@@ -38,6 +38,10 @@ args = "Start application"
 task = "workflow.run"
 args = "View HTML"
 
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Server"
+
 [[workflows.workflow]]
 name = "Start application"
 author = "agent"
@@ -66,3 +70,17 @@ task = "packager.installForAll"
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "cat index.html"
+
+[[workflows.workflow]]
+name = "Server"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+
+[[workflows.workflow.tasks]]
+task = "packager.installForAll"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "node server.js"
